@@ -75,10 +75,11 @@ abstract class MessageAbstract implements MessageInterface
 	 */
 	protected function findHeaderKey(string $name): ?string
 	{
-		return \array_find(
-			\array_keys($this->headers),
-			fn(string $header) => \strtolower($header) === \strtolower($name)
-		);
+		foreach (\array_keys($this->headers) as $header) {
+			if (\strcasecmp($header, $name) === 0) return $header;
+		}
+		
+		return null;
 	}
 
 	/**
